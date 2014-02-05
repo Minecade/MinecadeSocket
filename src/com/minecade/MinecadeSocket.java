@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import com.minecade.listeners.SocketListener;
+import com.minecade.threads.SocketProcessThread;
 
 public class MinecadeSocket {
 	public static final int listen_port = 9001;
@@ -13,6 +14,7 @@ public class MinecadeSocket {
 	
 	public static MinecadeSocket as = null;
 	public static SocketListener listener = null;
+	public static SocketProcessThread spt = null;
 	
 	public MinecadeSocket(){
 		as = this;
@@ -22,6 +24,8 @@ public class MinecadeSocket {
 		// try {loadConfig();} catch (IOException e) {e.printStackTrace();}
 		listener = new SocketListener(as);
 		listener.start();
+		spt = new SocketProcessThread();
+		spt.start();
 	}
 	
 	public static String getIp() {
